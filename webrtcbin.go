@@ -1,0 +1,288 @@
+// Copyright 2023 LiveKit, Inc.
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+package gstplugins
+
+import (
+	"fmt"
+
+	"github.com/tinyzimmer/go-gst/gst"
+)
+
+type Webrtcbin struct {
+	Element *gst.Element
+}
+
+func NewWebrtcbin() (*Webrtcbin, error) {
+	e, err := gst.NewElement("webrtcbin")
+	if err != nil {
+		return nil, err
+	}
+	return &Webrtcbin{Element: e}, nil
+}
+
+func NewWebrtcbinWithName(name string) (*Webrtcbin, error) {
+	e, err := gst.NewElementWithName("webrtcbin", name)
+	if err != nil {
+		return nil, err
+	}
+	return &Webrtcbin{Element: e}, nil
+}
+
+// ----- Properties -----
+
+// bundle-policy (GstWebRTCBundlePolicy)
+//
+// The policy to apply for bundling
+
+func (e *Webrtcbin) GetBundlePolicy() (interface{}, error) {
+	return e.Element.GetProperty("bundle-policy")
+}
+
+func (e *Webrtcbin) SetBundlePolicy(value interface{}) error {
+	return e.Element.SetProperty("bundle-policy", value)
+}
+
+// connection-state (GstWebRTCPeerConnectionState)
+//
+// The overall connection state of this element
+
+func (e *Webrtcbin) GetConnectionState() (interface{}, error) {
+	return e.Element.GetProperty("connection-state")
+}
+
+// current-local-description (GstWebRTCSessionDescription)
+//
+// The local description that was successfully negotiated the last time the connection transitioned into the stable state
+
+func (e *Webrtcbin) GetCurrentLocalDescription() (interface{}, error) {
+	return e.Element.GetProperty("current-local-description")
+}
+
+// current-remote-description (GstWebRTCSessionDescription)
+//
+// The last remote description that was successfully negotiated the last time the connection transitioned into the stable state plus any remote candidates that have been supplied via addIceCandidate since the offer or answer was created
+
+func (e *Webrtcbin) GetCurrentRemoteDescription() (interface{}, error) {
+	return e.Element.GetProperty("current-remote-description")
+}
+
+// http-proxy (string)
+//
+// A HTTP proxy for use with TURN/TCP of the form
+// http://[username:password@]hostname[:port][?alpn=]
+
+func (e *Webrtcbin) GetHttpProxy() (string, error) {
+	var value string
+	var ok bool
+	v, err := e.Element.GetProperty("http-proxy")
+	if err != nil {
+		return value, err
+	}
+	value, ok = v.(string)
+	if !ok {
+		return value, fmt.Errorf("could not cast value to string")
+	}
+	return value, nil
+}
+
+func (e *Webrtcbin) SetHttpProxy(value string) error {
+	return e.Element.SetProperty("http-proxy", value)
+}
+
+// ice-agent (GstWebRTCICE)
+//
+// The WebRTC ICE agent
+
+func (e *Webrtcbin) GetIceAgent() (interface{}, error) {
+	return e.Element.GetProperty("ice-agent")
+}
+
+func (e *Webrtcbin) SetIceAgent(value interface{}) error {
+	return e.Element.SetProperty("ice-agent", value)
+}
+
+// ice-connection-state (GstWebRTCICEConnectionState)
+//
+// The collective connection state of all ICETransport's
+
+func (e *Webrtcbin) GetIceConnectionState() (interface{}, error) {
+	return e.Element.GetProperty("ice-connection-state")
+}
+
+// ice-gathering-state (GstWebRTCICEGatheringState)
+//
+// The collective gathering state of all ICETransport's
+
+func (e *Webrtcbin) GetIceGatheringState() (interface{}, error) {
+	return e.Element.GetProperty("ice-gathering-state")
+}
+
+// ice-transport-policy (GstWebRTCICETransportPolicy)
+//
+// The policy to apply for ICE transport
+
+func (e *Webrtcbin) GetIceTransportPolicy() (interface{}, error) {
+	return e.Element.GetProperty("ice-transport-policy")
+}
+
+func (e *Webrtcbin) SetIceTransportPolicy(value interface{}) error {
+	return e.Element.SetProperty("ice-transport-policy", value)
+}
+
+// latency (uint)
+//
+// Default duration to buffer in the jitterbuffers (in ms)
+
+func (e *Webrtcbin) GetLatency() (uint, error) {
+	var value uint
+	var ok bool
+	v, err := e.Element.GetProperty("latency")
+	if err != nil {
+		return value, err
+	}
+	value, ok = v.(uint)
+	if !ok {
+		return value, fmt.Errorf("could not cast value to uint")
+	}
+	return value, nil
+}
+
+func (e *Webrtcbin) SetLatency(value uint) error {
+	return e.Element.SetProperty("latency", value)
+}
+
+// local-description (GstWebRTCSessionDescription)
+//
+// The local SDP description in use for this connection. Favours a pending description over the current description
+
+func (e *Webrtcbin) GetLocalDescription() (interface{}, error) {
+	return e.Element.GetProperty("local-description")
+}
+
+// pending-local-description (GstWebRTCSessionDescription)
+//
+// The local description that is in the process of being negotiated plus any local candidates that have been generated by the ICE Agent since the offer or answer was created
+
+func (e *Webrtcbin) GetPendingLocalDescription() (interface{}, error) {
+	return e.Element.GetProperty("pending-local-description")
+}
+
+// pending-remote-description (GstWebRTCSessionDescription)
+//
+// The remote description that is in the process of being negotiated, complete with any remote candidates that have been supplied via addIceCandidate since the offer or answer was created
+
+func (e *Webrtcbin) GetPendingRemoteDescription() (interface{}, error) {
+	return e.Element.GetProperty("pending-remote-description")
+}
+
+// remote-description (GstWebRTCSessionDescription)
+//
+// The remote SDP description to use for this connection. Favours a pending description over the current description
+
+func (e *Webrtcbin) GetRemoteDescription() (interface{}, error) {
+	return e.Element.GetProperty("remote-description")
+}
+
+// sctp-transport (GstWebRTCSCTPTransport)
+//
+// The WebRTC SCTP Transport
+
+func (e *Webrtcbin) GetSctpTransport() (interface{}, error) {
+	return e.Element.GetProperty("sctp-transport")
+}
+
+// signaling-state (GstWebRTCSignalingState)
+//
+// The signaling state of this element
+
+func (e *Webrtcbin) GetSignalingState() (interface{}, error) {
+	return e.Element.GetProperty("signaling-state")
+}
+
+// stun-server (string)
+//
+// The STUN server of the form stun://hostname:port
+
+func (e *Webrtcbin) GetStunServer() (string, error) {
+	var value string
+	var ok bool
+	v, err := e.Element.GetProperty("stun-server")
+	if err != nil {
+		return value, err
+	}
+	value, ok = v.(string)
+	if !ok {
+		return value, fmt.Errorf("could not cast value to string")
+	}
+	return value, nil
+}
+
+func (e *Webrtcbin) SetStunServer(value string) error {
+	return e.Element.SetProperty("stun-server", value)
+}
+
+// turn-server (string)
+//
+// The TURN server of the form turn(s)://username:password@host:port. To use time-limited credentials, the form must be turn(s)://timestamp:username:password@host:port. Please note that the ':' character of the 'timestamp:username' and the 'password' encoded by base64 should be escaped to be parsed properly. This is a convenience property, use add-turn-server if you wish to use multiple TURN servers
+
+func (e *Webrtcbin) GetTurnServer() (string, error) {
+	var value string
+	var ok bool
+	v, err := e.Element.GetProperty("turn-server")
+	if err != nil {
+		return value, err
+	}
+	value, ok = v.(string)
+	if !ok {
+		return value, fmt.Errorf("could not cast value to string")
+	}
+	return value, nil
+}
+
+func (e *Webrtcbin) SetTurnServer(value string) error {
+	return e.Element.SetProperty("turn-server", value)
+}
+
+// transceiver (GstWebRTCRTPTransceiver)
+//
+// Transceiver associated with this pad
+
+func (e *Webrtcbin) GetTransceiver() (interface{}, error) {
+	return e.Element.GetProperty("transceiver")
+}
+
+// msid (string)
+//
+// The MediaStream Identifier to use for this pad (MediaStreamTrack).
+// Fallback is the RTP SDES cname value if not provided.
+
+func (e *Webrtcbin) GetMsid() (string, error) {
+	var value string
+	var ok bool
+	v, err := e.Element.GetProperty("msid")
+	if err != nil {
+		return value, err
+	}
+	value, ok = v.(string)
+	if !ok {
+		return value, fmt.Errorf("could not cast value to string")
+	}
+	return value, nil
+}
+
+func (e *Webrtcbin) SetMsid(value string) error {
+	return e.Element.SetProperty("msid", value)
+}
+
