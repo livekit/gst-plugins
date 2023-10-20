@@ -2,30 +2,9 @@ module github.com/livekit/gstplugins
 
 go 1.20
 
-require (
-	github.com/PuerkitoBio/goquery v1.5.1
-	github.com/gocolly/colly/v2 v2.1.0
-	github.com/iancoleman/strcase v0.3.0
-	github.com/livekit/mageutil v0.0.0-20230125210925-54e8a70427c1
-	github.com/tinyzimmer/go-gst v0.2.33
-)
+require github.com/go-gst/go-gst v0.0.0-20231009181223-aa872b0f6c0c
 
 require (
-	github.com/andybalholm/cascadia v1.2.0 // indirect
-	github.com/antchfx/htmlquery v1.2.3 // indirect
-	github.com/antchfx/xmlquery v1.2.4 // indirect
-	github.com/antchfx/xpath v1.1.8 // indirect
-	github.com/gobwas/glob v0.2.3 // indirect
-	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
-	github.com/golang/protobuf v1.4.2 // indirect
-	github.com/kennygrant/sanitize v1.2.4 // indirect
+	github.com/go-gst/go-glib v0.0.0-20230811085623-0abfebfabe3e // indirect
 	github.com/mattn/go-pointer v0.0.1 // indirect
-	github.com/saintfish/chardet v0.0.0-20120816061221-3af4cd4741ca // indirect
-	github.com/temoto/robotstxt v1.1.1 // indirect
-	github.com/tinyzimmer/go-glib v0.0.25 // indirect
-	golang.org/x/net v0.0.0-20200602114024-627f9648deb9 // indirect
-	golang.org/x/sync v0.0.0-20220923202941-7f9b1623fab7 // indirect
-	golang.org/x/text v0.3.2 // indirect
-	google.golang.org/appengine v1.6.6 // indirect
-	google.golang.org/protobuf v1.24.0 // indirect
 )
